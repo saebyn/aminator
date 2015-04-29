@@ -25,6 +25,7 @@ ec2 cloud provider
 """
 import logging
 from time import sleep
+import string
 
 from boto.ec2 import connect_to_region, EC2Connection
 from boto.ec2.blockdevicemapping import BlockDeviceMapping, BlockDeviceType
@@ -206,7 +207,8 @@ class EC2CloudPlugin(BaseCloudPlugin):
 
         self.allocate_base_volume(tag=tag)
         # must do this as amazon still wants /dev/sd*
-        ec2_device_name = blockdevice.replace('xvd', 'sd')
+        #ec2_device_name = blockdevice.replace('xvd', 'sd')
+        ec2_device_name = blockdevice
         log.debug('Attaching volume {0} to {1}:{2}({3})'.format(self._volume.id, self._instance.id, ec2_device_name,
                                                                 blockdevice))
         self._volume.attach(self._instance.id, ec2_device_name)

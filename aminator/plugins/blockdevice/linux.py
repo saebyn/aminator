@@ -27,6 +27,7 @@ import fcntl
 import os
 import logging
 from collections import namedtuple
+import string
 
 from aminator.config import conf_action
 from aminator.exceptions import DeviceException
@@ -102,7 +103,7 @@ class LinuxBlockDevicePlugin(BaseBlockDevicePlugin):
 
             self._allowed_devices = [device_format.format(self._device_prefix, major, minor)
                                      for major in majors
-                                     for minor in xrange(1, 16)]
+                                     for minor in string.lowercase]
 
     def allocate_dev(self):
         context = self._config.context
